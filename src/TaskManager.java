@@ -12,16 +12,6 @@ public class TaskManager {
         HashMap<Integer, SubTask> subTasks = new HashMap<>();
         HashMap<Integer, Epic> epics = new HashMap<>();
 
-        Task task = new Task("fgklh", "dfgj", taskCount++, Status.NEW);
-        Task task1 = new Task("fgklh", "dfjhfhx", taskCount++, Status.NEW);
-        Task task2 = new Task("fgklh", "dkjghgxdfgdz", taskCount++, Status.NEW);
-
-        taskManager.addTask(tasks, task);
-        taskManager.addTask(tasks, task1);
-        taskManager.addTask(tasks, task2);
-
-        taskManager.taskList(tasks);
-
     }
 
     //добавление задачи
