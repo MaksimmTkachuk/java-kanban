@@ -89,6 +89,21 @@ public class TaskManager {
         return tasks.get(id);
     }
 
+    public HashMap removeTaskByID(HashMap<Integer,Task> tasks, int id) {
+        tasks.remove(id);
+        return tasks;
+    }
+
+    public HashMap removeSubTaskByID(HashMap<Integer,SubTask> tasks, int id) {
+        tasks.remove(id);
+        return tasks;
+    }
+
+    public HashMap removeEpicTaskByID(HashMap<Integer,Epic> tasks, int id) {
+        tasks.remove(id);
+        return tasks;
+    }
+
     Integer hashCode(Object o) {
         return Objects.hash(o);
     }
