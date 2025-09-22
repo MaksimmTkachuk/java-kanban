@@ -1,7 +1,6 @@
 package task;
 
 import manager.TaskManager;
-import task.Status;
 
 import java.util.Objects;
 
@@ -37,7 +36,6 @@ public class Task extends TaskManager {
                 ", status=" + status +
                 '}';
     }
-
 
     @Override
     public int hashCode() {
