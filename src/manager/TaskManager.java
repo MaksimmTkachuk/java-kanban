@@ -50,7 +50,7 @@ public class TaskManager {
     }
 
     public void removeSubTaskFromEpic(SubTask subTask, ArrayList<SubTask> subTasks) {
-        if (subTasks.contains(subTask)) subTasks.remove(subTask);
+        subTasks.remove(subTask);
     }
 
     //добавление эпика
