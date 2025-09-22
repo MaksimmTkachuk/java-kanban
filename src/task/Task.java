@@ -11,9 +11,9 @@ public class Task extends TaskManager {
     private Status status;
 
 
-    public Task(String title, String descript, int idCounter, Status status) {
+    public Task(String title, String description, int idCounter, Status status) {
         this.title = title;
-        this.description = descript;
+        this.description = description;
         this.ID = idCounter++;
         this.status = status;
     }
