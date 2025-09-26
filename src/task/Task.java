@@ -1,10 +1,10 @@
 package task;
 
-import manager.TaskManager;
+import manager.InMemoryTaskManager;
 
 import java.util.Objects;
 
-public class Task extends TaskManager {
+public class Task extends InMemoryTaskManager {
     private String title;
     private String description;
     private int ID;

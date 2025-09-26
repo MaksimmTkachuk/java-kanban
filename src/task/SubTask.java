@@ -6,7 +6,6 @@ public class SubTask extends Task {
 
     public SubTask(String title, String description, int idCounter, Status status) {
         super(title, description, idCounter, status);
-        this.EpicID = idCounter;
     }
 
 

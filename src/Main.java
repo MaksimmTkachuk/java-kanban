@@ -1,4 +1,7 @@
+import manager.InMemoryTaskManager;
 import manager.TaskManager;
+import manager.HistoryManager;
+import manager.InMemoryHistoryManager;
 import task.Epic;
 import task.Status;
 import task.SubTask;
@@ -6,21 +9,26 @@ import task.Task;
 
 import java.util.ArrayList;
 
-import static manager.TaskManager.idCounter;
+import static manager.InMemoryTaskManager.idCounter;
+import static manager.Managers.printAllTasks;
 
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("Поехали!");
 
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = new InMemoryTaskManager();
+        HistoryManager historyManager = new InMemoryHistoryManager();
 
-        Task study = new Task("Пройти спринт", "Успеть до жесткого дедлайна пройти 5й спринт", idCounter++, Status.NEW);
-        Task work = new Task("Получить категорию", "Собрать все дипломы и прочую документацию", idCounter++, Status.NEW);
+        Task study = new Task("Пройти спринт", "Успеть до жесткого дедлайна пройти 5й спринт", 5, Status.NEW);
+        Task work = new Task("Получить категорию", "Собрать все дипломы и прочую документацию", 5, Status.NEW);
+
 
         Epic changePipe = new Epic("Заменить трубу", "Вырезать металлическую трубу и заменить ей гофру", idCounter++, Status.NEW);
         SubTask countLength = new SubTask("Замерить трубу", "Рассчитать рулеткой расстояние", idCounter++, Status.NEW);
+        countLength.setEpicID(changePipe.getID());
         SubTask cleanWindows = new SubTask("Почистить окна", "Почистить окна для трубы", idCounter++, Status.NEW);
+        cleanWindows.setEpicID(changePipe.getID());
         ArrayList<SubTask> pipeChange = new ArrayList<>();
         taskManager.addSubTaskToEpic(countLength, pipeChange);
         taskManager.addSubTaskToEpic(cleanWindows, pipeChange);
@@ -28,9 +36,12 @@ public class Main {
 
         Epic writeQuartet = new Epic("Закончить квартет", "Закончить к ноябрю весь материал", idCounter++, Status.NEW);
         SubTask searchTheme = new SubTask("Найти вторую тему", "Попробовать ритмические варианты", idCounter++, Status.NEW);
+        searchTheme.setEpicID(writeQuartet.getID());
         ArrayList<SubTask> listForQuartet = new ArrayList<>();
         taskManager.addSubTaskToEpic(searchTheme, listForQuartet);
         writeQuartet.setSubTasks(listForQuartet);
+
+
 
 
         taskManager.addTask(study);
@@ -43,7 +54,7 @@ public class Main {
         taskManager.addEpic(changePipe);
         taskManager.addEpic(writeQuartet);
 
-        System.out.println(taskManager.getTaskList());
+        /*System.out.println(taskManager.getTaskList());
         System.out.println(taskManager.getSubTaskList());
         System.out.println(taskManager.getEpicList());
 
@@ -68,7 +79,11 @@ public class Main {
 
         System.out.println(taskManager.getTaskList());
         System.out.println(taskManager.getSubTaskList());
-        System.out.println(taskManager.getEpicList());
+        System.out.println(taskManager.getEpicList());*/
+
+        printAllTasks(taskManager);
 
     }
-}
+
+    }
+
