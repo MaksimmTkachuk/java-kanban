@@ -14,7 +14,6 @@ import static manager.InMemoryHistoryManager.history;
 public class InMemoryTaskManager implements TaskManager {
     public static int idCounter = 1;
 
-
     private final HashMap<Integer, Task> tasks = new HashMap<>();
     private final HashMap<Integer, SubTask> subTasks = new HashMap<>();
     private final HashMap<Integer, Epic> epics = new HashMap<>();
@@ -234,6 +233,5 @@ public class InMemoryTaskManager implements TaskManager {
             System.out.println(task);
         }
     }
-
 }
 

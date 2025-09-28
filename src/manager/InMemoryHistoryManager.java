@@ -1,8 +1,6 @@
 package manager;
 
 
-import task.Epic;
-import task.SubTask;
 import task.Task;
 
 import java.util.ArrayList;
@@ -11,9 +9,9 @@ import java.util.List;
 public class InMemoryHistoryManager implements HistoryManager {
     public static List<Task> history = new ArrayList<>(10);
 
-
+    //добавление в историю
     @Override
-    public boolean add(Task task) {
+    public void add(Task task) {
         if (task != null) {
             if (history.size() == 10) {
                 history.removeFirst();
@@ -21,11 +19,8 @@ public class InMemoryHistoryManager implements HistoryManager {
             } else {
                 history.add(task);
             }
-            return true;
         }
-        return false;
     }
-
 
     //истороия просмотров
     @Override

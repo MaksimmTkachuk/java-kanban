@@ -42,12 +42,9 @@ public class Main {
         taskManager.addSubTaskToEpic(searchTheme, listForQuartet);
         writeQuartet.setSubTasks(writeQuartet,listForQuartet);
 
-
-
         historyManager.add(study);
         historyManager.add(work);
         historyManager.add(writeQuartet);
-
 
         taskManager.addTask(study);
         taskManager.addTask(work);
@@ -59,7 +56,7 @@ public class Main {
         taskManager.addEpic(changePipe);
         taskManager.addEpic(writeQuartet);
 
-        /*System.out.println(taskManager.getTaskList());
+        System.out.println(taskManager.getTaskList());
         System.out.println(taskManager.getSubTaskList());
         System.out.println(taskManager.getEpicList());
 
@@ -84,7 +81,7 @@ public class Main {
 
         System.out.println(taskManager.getTaskList());
         System.out.println(taskManager.getSubTaskList());
-        System.out.println(taskManager.getEpicList());*/
+        System.out.println(taskManager.getEpicList());
 
         printAllTasks(taskManager);
 

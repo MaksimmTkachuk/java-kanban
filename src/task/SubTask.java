@@ -8,7 +8,6 @@ public class SubTask extends Task {
         super(title, description, idCounter, status);
     }
 
-
     public int getEpicID() {
         return EpicID;
     }
@@ -16,7 +15,6 @@ public class SubTask extends Task {
     public void setEpicID(int epicID) {
         EpicID = epicID;
     }
-
 
     @Override
     public String toString() {

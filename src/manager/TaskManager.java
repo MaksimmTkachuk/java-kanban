@@ -21,7 +21,6 @@ public interface TaskManager {
     //обновление подзадачи
     void updateSubTask(SubTask task);
 
-
     //создание и добавление подзадач в список для эпика
     boolean addSubTaskToEpic(Task subTask, ArrayList<SubTask> subTasks);
 
@@ -81,6 +80,5 @@ public interface TaskManager {
 
     //удаление эпика по номеру
     void removeEpicByID(int id);
-
 
 }

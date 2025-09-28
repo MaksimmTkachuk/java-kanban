@@ -10,14 +10,12 @@ public class Task extends InMemoryTaskManager {
     private int ID;
     private Status status;
 
-
     public Task(String title, String description, int idCounter, Status status) {
         this.title = title;
         this.description = description;
-        this.ID = idCounter++;
+        this.ID = idCounter;
         this.status = status;
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -31,7 +29,7 @@ public class Task extends InMemoryTaskManager {
     public String toString() {
         return "Task{" +
                 "title='" + title + '\'' +
-                ", descript='" + description + '\'' +
+                ", description='" + description + '\'' +
                 ", ID=" + ID +
                 ", status=" + status +
                 '}';
