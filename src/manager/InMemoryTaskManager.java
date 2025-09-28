@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static manager.Managers.getDefaultHistory;
 import static manager.InMemoryHistoryManager.history;
 
-public class InMemoryTaskManager implements TaskManager, HistoryManager {
+public class InMemoryTaskManager implements TaskManager {
     public static int idCounter = 1;
-
-    HistoryManager historyManager = getDefaultHistory();
 
 
     private final HashMap<Integer, Task> tasks = new HashMap<>();
@@ -52,17 +49,6 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
         } else {
             subTasks.put(task.getID(), task);
         }
-    }
-
-    //добавление одной позадачи в эпик
-    @Override
-    public boolean addSingleSubTaskToEpic(Task subTask, Epic epic) {
-        if(subTask instanceof Epic && subTask == this) {
-            return false;
-        } else {
-            epic.setSubTask((SubTask) subTask);
-        }
-       return true;
     }
 
     //создание и добавление подзадач в список для эпика
@@ -127,17 +113,11 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
         }
     }
 
-    @Override
-    public boolean add(Task task) {
-        return true;
-    }
-
     //список истории
     @Override
     public List<Task> getHistory() {
         return history;
     }
-
 
     @Override
     public HashMap<Integer, Task> getTasks() {
@@ -175,7 +155,7 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
     //получение списка задач
     @Override
     public List<Task> getTaskList() {
-        return new ArrayList<Task>(tasks.values());
+        return new ArrayList<>(tasks.values());
     }
 
     //получение списка подзадач
@@ -192,23 +172,13 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
 
     @Override
     public List<SubTask> getEpicSubtasks(int id) {
-
-        return new ArrayList<SubTask>(epics.get(id).getSubTasksToEpicList());
+        return new ArrayList<SubTask>(getEpics().get(id).getSubTasksToEpicList());
     }
 
     //получение задачи по номеру
     @Override
     public Task getTaskById(int id) {
         Task task = tasks.get(id);
-
-        if (task != null) {
-            if (history.size() == 10) {
-                history.removeFirst();
-                history.addFirst(task);
-            } else {
-                history.add(task);
-            }
-        }
         return tasks.get(id);
     }
 
@@ -216,15 +186,6 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
     @Override
     public SubTask getSubTaskById(int id) {
         SubTask task = subTasks.get(id);
-
-        if (task != null) {
-            if (history.size() == 10) {
-                history.removeFirst();
-                history.addFirst(task);
-            } else {
-                history.add(task);
-            }
-        }
         return subTasks.get(id);
     }
 
@@ -232,15 +193,6 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
     @Override
     public Epic getEpicById(int id) {
         Epic task = epics.get(id);
-
-        if (task != null) {
-            if (history.size() == 10) {
-                history.removeFirst();
-                history.addFirst(task);
-            } else {
-                history.add(task);
-            }
-        }
         return epics.get(id);
     }
 
@@ -261,5 +213,30 @@ public class InMemoryTaskManager implements TaskManager, HistoryManager {
     public void removeEpicByID(int id) {
         epics.remove(id);
     }
+
+    public static void printAllTasks(TaskManager manager) {
+        System.out.println("Задачи:");
+        for (Task task : manager.getTaskList()) {
+            System.out.println(task);
+        }
+        System.out.println("Эпики:");
+        for (Task epic : manager.getEpicList()) {
+            System.out.println(epic);
+
+            for (Task task : manager.getEpicSubtasks(epic.getID())) {
+                System.out.println("--> " + task);
+            }
+        }
+        System.out.println("Подзадачи:");
+        for (Task subtask : manager.getSubTaskList()) {
+            System.out.println(subtask);
+        }
+
+        System.out.println("История:");
+        for (Task task : manager.getHistory()) {
+            System.out.println(task);
+        }
+    }
+
 }
 

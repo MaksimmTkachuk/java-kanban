@@ -1,32 +1,28 @@
 package task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
 
     private ArrayList<SubTask> subTasksToEpicList;
-    private SubTask subTask;
+
 
     public Epic(String title, String description, int idCounter, Status status) {
         super(title, description, idCounter, status);
         this.subTasksToEpicList = getSubTasksToEpicList();
-        this.subTask = getSubTask();
     }
 
-    public SubTask getSubTask() {
-        return subTask;
-    }
-
-    public void setSubTask(Task subTask) {
-        this.subTask = (SubTask) subTask;
-    }
-
-    public ArrayList<SubTask> getSubTasksToEpicList() {
+    public ArrayList<SubTask>  getSubTasksToEpicList() {
         return subTasksToEpicList;
     }
 
-    public void setSubTasks(ArrayList<SubTask> subTasks) {
-        this.subTasksToEpicList = subTasks;
+    public boolean setSubTasks(Task epic, ArrayList<SubTask> subTasks) {
+        if (epic instanceof Epic) {
+            ((Epic) epic).subTasksToEpicList = subTasks;
+            return true; }
+
+        return false;
     }
 
     @Override

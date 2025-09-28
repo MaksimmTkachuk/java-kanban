@@ -1,6 +1,8 @@
 package manager;
 
 
+import task.Epic;
+import task.SubTask;
 import task.Task;
 
 import java.util.ArrayList;
@@ -12,8 +14,18 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public boolean add(Task task) {
-        return true;
+        if (task != null) {
+            if (history.size() == 10) {
+                history.removeFirst();
+                history.addFirst(task);
+            } else {
+                history.add(task);
+            }
+            return true;
+        }
+        return false;
     }
+
 
     //истороия просмотров
     @Override

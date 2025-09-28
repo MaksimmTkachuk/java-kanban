@@ -22,10 +22,6 @@ public interface TaskManager {
     void updateSubTask(SubTask task);
 
 
-    //добавление одной позадачи в эпик
-    boolean addSingleSubTaskToEpic(Task subTask, Epic epic);
-
-
     //создание и добавление подзадач в список для эпика
     boolean addSubTaskToEpic(Task subTask, ArrayList<SubTask> subTasks);
 
@@ -66,7 +62,8 @@ public interface TaskManager {
     //получение списка эпиков
     List<Epic> getEpicList();
 
-    List<SubTask> getEpicSubtasks(int epicID);
+    List<SubTask> getEpicSubtasks(int id);
+
     //получение задачи по номеру
     Task getTaskById(int id);
 

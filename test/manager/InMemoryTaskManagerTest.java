@@ -28,7 +28,7 @@ class InMemoryTaskManagerTest {
         Task firstTask = new Task("firstTask", "firstTaskDescription", 1, Status.NEW);
         Task secondTask = new Task("secondTask", "secondTaskDescription", 1, Status.NEW);
 
-        Assertions.assertEquals(firstTask, secondTask, "Если равны ID задач, то это должна быть одна задача");
+        Assertions.assertEquals(firstTask.getID(), secondTask.getID(), "Если равны ID задач, то это должна быть одна задача");
     }
 
     @Test
@@ -36,7 +36,7 @@ class InMemoryTaskManagerTest {
         Task firstTask = new SubTask("firstTask", "firstTaskDescription", 1, Status.NEW);
         Task secondTask = new SubTask("secondTask", "secondTaskDescription", 1, Status.NEW);
 
-        Assertions.assertEquals(firstTask, secondTask, "Если равны ID задач, то это должна быть одна задача");
+        Assertions.assertEquals(firstTask.getID(), secondTask.getID(), "Если равны ID задач, то это должна быть одна задача");
     }
 
     @Test
@@ -44,25 +44,25 @@ class InMemoryTaskManagerTest {
         Task firstTask = new Epic("firstTask", "firstTaskDescription", 1, Status.NEW);
         Task secondTask = new Epic("secondTask", "secondTaskDescription", 1, Status.NEW);
 
-        Assertions.assertEquals(firstTask, secondTask, "Если равны ID задач, то это должна быть одна задача");
+        Assertions.assertEquals(firstTask.getID(), secondTask.getID(), "Если равны ID задач, то это должна быть одна задача");
     }
 
     @Test
     void epicCannotBeAddedToItself() {
-        Task task = new Epic("epic", "epicDescription", 1, Status.NEW);
+        Epic task = new Epic("epic", "epicDescription", 1, Status.NEW);
         ArrayList<SubTask> subTasksToEpic = new ArrayList<>();
         assertFalse(manager.addSubTaskToEpic(task, subTasksToEpic), "Эпик не может быть добавлен сам в себя");
     }
 
-//    @Test
-//    void subTaskCannotBeEpicToItself() {
-//        SubTask task = new SubTask("task", "task description", 1, Status.NEW);
-//        Epic epic = new Epic("epic", "epic description", 1, Status.NEW);
-//        epic.setSubTask(task);
-//
-//        assertNull(task.setSubTask(task));
-//
-//    }
+    @Test
+    void subTaskCannotBeEpicToItself() {
+        SubTask task = new SubTask("task", "task description", 1, Status.NEW);
+        Epic epic = new Epic("epic", "epic description", 1, Status.NEW);
+        ArrayList<SubTask> subTasks = new ArrayList<>();
+        subTasks.add(task);
+
+        assertFalse(epic.setSubTasks(task, subTasks));
+    }
 
     @Test
     void managerClassGetWorkedManagers() {
@@ -78,7 +78,9 @@ class InMemoryTaskManagerTest {
         Task task = new Task("task", "task description", 1, Status.NEW);
         SubTask subTask = new SubTask("firstTask", "firstTaskDescription", 1, Status.NEW);
         Epic epic = new Epic("secondTask", "secondTaskDescription", 1, Status.NEW);
-        manager.addSingleSubTaskToEpic(subTask, epic);
+        ArrayList<SubTask> subTasks = new ArrayList<>();
+        manager.addSubTaskToEpic(subTask, subTasks);
+        epic.setSubTasks(epic, subTasks);
 
         manager.addTask(task);
         manager.addSubTask(subTask);
@@ -115,7 +117,7 @@ class InMemoryTaskManagerTest {
 
         manager.addTask(task);
 
-        assertTrue(manager.getTasks().get(task.getID()).equals(task), "Объекты должны быть равны по всем полям");
+        assertEquals(manager.getTasks().get(task.getID()), task, "Объекты должны быть равны по всем полям");
     }
 
     @Test
@@ -124,7 +126,7 @@ class InMemoryTaskManagerTest {
 
         manager.addTask(task);
         manager.getTaskById(task.getID());
-        assertEquals(historyManager.getHistory().get(0), manager.getTasks().get(task.getID()), "Задача должна остаться той же после просмотра");
+        assertEquals(historyManager.getHistory().getFirst(), manager.getTasks().get(task.getID()), "Задача должна остаться той же после просмотра");
     }
 
 

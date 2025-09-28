@@ -10,7 +10,8 @@ import task.Task;
 import java.util.ArrayList;
 
 import static manager.InMemoryTaskManager.idCounter;
-import static manager.Managers.printAllTasks;
+import static manager.InMemoryTaskManager.printAllTasks;
+
 
 public class Main {
 
@@ -32,16 +33,20 @@ public class Main {
         ArrayList<SubTask> pipeChange = new ArrayList<>();
         taskManager.addSubTaskToEpic(countLength, pipeChange);
         taskManager.addSubTaskToEpic(cleanWindows, pipeChange);
-        changePipe.setSubTasks(pipeChange);
+        changePipe.setSubTasks(changePipe, pipeChange);
 
         Epic writeQuartet = new Epic("Закончить квартет", "Закончить к ноябрю весь материал", idCounter++, Status.NEW);
         SubTask searchTheme = new SubTask("Найти вторую тему", "Попробовать ритмические варианты", idCounter++, Status.NEW);
         searchTheme.setEpicID(writeQuartet.getID());
         ArrayList<SubTask> listForQuartet = new ArrayList<>();
         taskManager.addSubTaskToEpic(searchTheme, listForQuartet);
-        writeQuartet.setSubTasks(listForQuartet);
+        writeQuartet.setSubTasks(writeQuartet,listForQuartet);
 
 
+
+        historyManager.add(study);
+        historyManager.add(work);
+        historyManager.add(writeQuartet);
 
 
         taskManager.addTask(study);
